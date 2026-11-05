@@ -1,0 +1,22 @@
+{
+  "name": "dps-indirapuram-cafeteria-system",
+  "version": "1.0.0",
+  "description": "Delhi Public School Indirapuram - Cafeteria Wallet & Advance Meal Pre-Booking System",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=22.x"
+  },
+  "keywords": [
+    "school-cafeteria",
+    "lms",
+    "delhi-public-school",
+    "wallet",
+    "pos"
+  ],
+  "author": "DPS Indirapuram",
+  "license": "ISC"
+}
