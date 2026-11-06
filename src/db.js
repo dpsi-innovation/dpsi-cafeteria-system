@@ -24,11 +24,20 @@ if (isServerless) {
   dbPath = tmpDbPath;
 }
 
-const db = new DatabaseSync(dbPath);
-
-// Enable WAL mode and foreign keys for high reliability & ACID performance
-db.exec('PRAGMA journal_mode = WAL;');
-db.exec('PRAGMA foreign_keys = ON;');
+let db;
+try {
+  db = new DatabaseSync(dbPath);
+  db.exec('PRAGMA journal_mode = WAL;');
+  db.exec('PRAGMA foreign_keys = ON;');
+} catch (err) {
+  console.warn('[DB] Could not open database at ' + dbPath + ', falling back to in-memory SQLite:', err.message);
+  try {
+    db = new DatabaseSync(':memory:');
+  } catch (memErr) {
+    console.error('[DB_FATAL]', memErr);
+    throw memErr;
+  }
+}
 
 // Initialize tables
 db.exec(`

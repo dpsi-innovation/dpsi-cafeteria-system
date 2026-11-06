@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delhi Public School Indirapuram - SchoolsOS</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- ============================================================== -->
+  <!-- TOP MUSTARD HEADER (1:1 PIXEL MATCH TO SCREENSHOT) -->
+  <!-- ============================================================== -->
+  <header class="top-header">
+    <div class="school-brand-left">
+      <div class="crest-circle">
+        <img src="/dps-logo.png" alt="DPS Logo">
+      </div>
+      <div class="school-title">Delhi Public School Indirapuram</div>
+    </div>
+
+    <div class="header-right">
+      <div class="schools-os-btn">
+        <span>SchoolsOS</span>
+        <span style="font-size: 0.65rem;">∨</span>
+      </div>
+
+      <!-- Notification Bell with '1' badge -->
+      <button class="top-icon-btn" title="Notifications">
+        🔔
+        <span class="bell-badge">1</span>
+      </button>
+
+      <!-- Night mode toggle icon -->
+      <button class="top-icon-btn" title="Toggle theme">
+        🌙
+      </button>
+
+      <!-- Student Account Selector Pill -->
+      <div class="top-student-select-pill">
+        <span style="font-size: 0.7rem; font-weight: 800; color: #784f04;">STUDENT:</span>
+        <select id="topbar-student-selector" onchange="handleStudentChange(this.value)">
+          <!-- Populated from DB: Aarav Sharma, Diya Patel, Rohan Verma, etc. -->
+        </select>
+      </div>
+
+      <!-- Realistic Reset Test Mode Button in Header -->
+      <button onclick="promptResetTestMode()" class="top-reset-btn" title="Reset Demo Data">
+        <span>🔄</span>
+        <span>Reset Test Data</span>
+      </button>
+
+      <!-- User Profile (Matching Shashank Jangid / Selected Student) -->
+      <div class="profile-pill" onclick="switchNav('dashboard')">
+        <div class="profile-texts">
+          <div class="profile-name" id="top-user-name">SHASHANK JANGID</div>
+          <div class="profile-id" id="top-user-id">(SESC181)</div>
+          <div class="profile-role" id="top-user-role">Projects & Competition Coordinator</div>
+        </div>
+        <div class="user-avatar-circle" id="top-avatar">
+          SJ
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================== -->
+  <!-- MAIN APP BODY -->
+  <!-- ============================================================== -->
+  <div class="app-body">
+
+    <!-- LEFT SIDEBAR (1:1 MATCH TO SCREENSHOT) -->
+    <aside class="sidebar">
+      <!-- Sidebar collapse round button on right border -->
+      <div class="sidebar-collapse-btn">‹</div>
+
+      <div class="session-row">
+        <span>Current Session: <strong>2026-27</strong></span>
+        <span class="session-edit-icon" title="Edit Session">✏️</span>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-link active" id="nav-dashboard" onclick="switchNav('dashboard')">
+          <div class="menu-link-left">
+            <span class="menu-icon">🏠</span>
+            <span>Dashboard</span>
+          </div>
+        </div>
+
+        <div class="menu-link">
+          <div class="menu-link-left">
+            <span class="menu-icon">📡</span>
+            <span>Communications</span>
+          </div>
+          <span class="menu-dots">&hellip;</span>
+        </div>
+
+        <div class="menu-link">
+          <div class="menu-link-left">
+            <span class="menu-icon">🏛️</span>
+            <span>Estate Management</span>
+          </div>
+          <span class="menu-dots">&hellip;</span>
+        </div>
+
+        <div class="menu-link">
+          <div class="menu-link-left">
+            <span class="menu-icon">📅</span>
+            <span>Events & Calendars</span>
+          </div>
+        </div>
+
+        <div class="menu-link">
+          <div class="menu-link-left">
+            <span class="menu-icon">📝</span>
+            <span>Examination Management</span>
+          </div>
+          <span class="menu-dots">&hellip;</span>
+        </div>
+
+        <div class="menu-link">
+          <div class="menu-link-left">
+            <span class="menu-icon">👥</span>
+            <span>HR Management</span>
+          </div>
+          <span class="menu-dots">&hellip;</span>
+        </div>
+
+        <div class="menu-link">
+          <div class="menu-link-left">
+            <span class="menu-icon">📖</span>
+            <span>Library Management</span>
+          </div>
+          <span class="menu-dots">&hellip;</span>
+        </div>
+
+        <div class="menu-link">
+          <div class="menu-link-left">
+            <span class="menu-icon">💰</span>
+            <span>Payroll Management</span>
+          </div>
+          <span class="menu-dots">&hellip;</span>
+        </div>
+
+        <div class="menu-link">
+          <div class="menu-link-left">
+            <span class="menu-icon">📊</span>
+            <span>Reports</span>
+          </div>
+          <span class="menu-dots">&hellip;</span>
+        </div>
+
+        <div class="menu-link">
+          <div class="menu-link-left">
+            <span class="menu-icon">🖼️</span>
+            <span>School Gallery</span>
+          </div>
+        </div>
+
+        <div class="menu-link">
+          <div class="menu-link-left">
+            <span class="menu-icon">🎓</span>
+            <span>Students Management</span>
+          </div>
+          <span class="menu-dots">&hellip;</span>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- ★ REQUESTED: CAFETERIA WALLET SYSTEM ON DOWNSIDE OF LEFT BAR ★ -->
+        <!-- ============================================================== -->
+        <div class="menu-link cafeteria-link" id="nav-cafeteria" onclick="switchNav('cafeteria')">
+          <div class="menu-link-left">
+            <span class="menu-icon" style="color: #b45309;">🥪</span>
+            <span style="font-weight: 700;">Cafeteria & Wallet</span>
+          </div>
+          <span style="background: #fef08a; color: #854d0e; font-size: 9px; font-weight: 800; padding: 2px 5px; border-radius: 4px;">PAY</span>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- MAIN VIEWPORT -->
+    <main class="main-viewport">
+
+      <!-- ============================================================== -->
+      <!-- VIEW 1: EXACT LMS DASHBOARD (REPLICATING SCREENSHOT) -->
+      <!-- ============================================================== -->
+      <div id="view-dashboard" class="view-pane active">
+
+        <div class="top-dashboard-cards">
+          
+          <!-- Card 1: User Hero Card (Matching Golden Box in Screenshot) -->
+          <div class="golden-card user-hero-box">
+            <div class="user-hero-top">
+              <div class="hero-avatar-wrapper">
+                <div class="hero-avatar-img" id="hero-avatar-initials">SJ</div>
+                <div class="hero-avatar-check">✓</div>
+              </div>
+              <div>
+                <div class="hero-greet-text">GOOD AFTERNOON,</div>
+                <div class="hero-full-name" id="hero-display-name">SHASHANK JANGID</div>
+                <div class="hero-role-badge" id="hero-role-tag">PROJECTS & COMPETITION COORDIN...</div>
+              </div>
+            </div>
+
+            <div class="hero-info-row">
+              <span>📅 October 2026</span>
+              <span>👤 ID: <strong id="hero-display-id">SESC181</strong></span>
+            </div>
+
+            <button class="view-profile-action-btn" onclick="switchNav('cafeteria')">
+              <span>View Profile</span>
+              <span>&rarr;</span>
+            </button>
+          </div>
+
+          <!-- Card 2: Recent & Frequent Actions (Matching Golden Box in Screenshot) -->
+          <div class="golden-card recent-actions-wrapper">
+            <div class="recent-title-row">
+              <span>🕒</span>
+              <span>Recent & frequent actions</span>
+            </div>
+            <div class="recent-sub-text">Continue where you left off</div>
+
+            <div class="recent-empty-box" style="flex-direction: column; gap: 8px;">
+              <span>Your four most recently clicked menu actions will appear here.</span>
+              <button class="btn-primary" style="padding: 4px 12px; font-size: 0.72rem; background: #e5b958; color: #1e293b; border: 1px solid #c69214;" onclick="switchNav('cafeteria')">
+                🥪 Quick Cafeteria Wallet Top-Up &rarr;
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Card 3: Upcoming Events (Matching Bottom Section in Screenshot) -->
+        <div class="upcoming-events-container">
+          <div class="events-top-bar">
+            <div class="events-title-left">
+              <div class="calendar-icon-sq">📅</div>
+              <div class="events-heading">Upcoming Events</div>
+            </div>
+            <span class="events-count-pill">3</span>
+          </div>
+
+          <!-- Event Item 1 -->
+          <div class="event-card-row">
+            <div class="event-details-col">
+              <h4>
+                <span>📋</span>
+                <span>PTM (XI & XII), Answer Scripts showing (III-V)</span>
+              </h4>
+              <div class="event-desc-line">PTM (XI & XII)</div>
+              <div class="event-pill-tag">
+                <span>event</span>
+                <span>2026-10-10 - 2026-10-10</span>
+              </div>
+            </div>
+            <div class="days-tag">
+              1 day
+            </div>
+          </div>
+
+          <!-- Event Item 2 -->
+          <div class="event-card-row">
+            <div class="event-details-col">
+              <h4>
+                <span>📋</span>
+                <span>PT-3 (X)</span>
+              </h4>
+              <div class="event-desc-line">PT-3 (X)</div>
+              <div class="event-pill-tag">
+                <span>event</span>
+                <span>2026-10-12 - 2026-10-12</span>
+              </div>
+            </div>
+            <div class="days-tag">
+              3 days
+            </div>
+          </div>
+
+          <!-- Event Item 3: Cafeteria Live Status -->
+          <div class="event-card-row" style="border-left: 3px solid #10b981;">
+            <div class="event-details-col">
+              <h4>
+                <span>🥪</span>
+                <span>Cafeteria Digital Wallet & Token System Active</span>
+              </h4>
+              <div class="event-desc-line">Students can purchase food using their personal admission wallet.</div>
+              <div class="event-pill-tag" style="background: #dcfce7; color: #15803d;">
+                <span>active</span>
+                <span>Zero Cash &bull; No Token Queues</span>
+              </div>
+            </div>
+            <button class="btn-primary" style="padding: 4px 10px; font-size: 0.72rem;" onclick="switchNav('cafeteria')">
+              Open Wallet
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- VIEW 2: EMBEDDED CAFETERIA SYSTEM (STUDENT-ISOLATED) -->
+      <!-- ============================================================== -->
+      <div id="view-cafeteria" class="view-pane">
+
+        <div class="cafe-header">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h2 style="font-size: 1.25rem; font-weight: 800; color: #111827;">Cafeteria Wallet Microservice</h2>
+              <span id="active-student-pill" style="background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 12px; font-size: 0.72rem; font-weight: 700;">
+                Aarav Sharma (ADM-2026-101)
+              </span>
+            </div>
+            <p style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">
+              SchoolsOS Financial Isolation Active &bull; Only showing balances & transactions for the selected student
+            </p>
+          </div>
+
+          <div class="cafe-tab-pills">
+            <button class="cafe-tab-btn" onclick="switchCafeTab('tab-prebook')">🍱 Advance Meal Booking</button>
+            <button class="cafe-tab-btn active" onclick="switchCafeTab('tab-topup')">💳 Parent Top-Up</button>
+            <button class="cafe-tab-btn" onclick="switchCafeTab('tab-pass')">🎫 Student Pass</button>
+            <button class="cafe-tab-btn" onclick="switchCafeTab('tab-pos')">🛒 Canteen POS</button>
+          </div>
+        </div>
+
+        <!-- 0. ADVANCE MEAL PRE-BOOKING TAB (REQUESTED FEATURE) -->
+        <div id="tab-prebook" class="cafe-sub-view" style="display: none;">
+          <div class="grid-2">
+            <div>
+              <div class="card-white" style="border: 1.5px solid #dcb360; background: #fffdf9;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-size: 0.72rem; font-weight: 800; color: #92630a; text-transform: uppercase;">PRE-ORDER STUDENT MEAL IN ADVANCE</span>
+                  <span class="badge badge-success" style="font-size: 0.65rem;">ZERO TOKEN QUEUE</span>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: #111827;">Book Tomorrow's Fresh Meal</h3>
+                <p style="font-size: 0.78rem; color: #64748b; margin-top: 2px;">
+                  Parents can pre-pay for tomorrow or any date. Canteen staff gets the prep order and your child picks it up via priority token!
+                </p>
+
+                <!-- Date & Meal Type Selection -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px;">
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label>Select Date</label>
+                    <input type="date" id="prebook-date" style="font-weight: 700; color: #1e3a8a; background: #ffffff;">
+                  </div>
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label>Meal Type</label>
+                    <select id="prebook-meal-type" style="font-weight: 700;">
+                      <option value="Lunch" selected>🍱 Lunch (Recess)</option>
+                      <option value="Breakfast">🍲 Breakfast (Morning)</option>
+                      <option value="Snacks">🥪 Evening Snacks</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style="margin-top: 12px; display: flex; gap: 6px;">
+                  <button type="button" class="btn-primary" style="padding: 4px 10px; font-size: 0.72rem; background: #fef08a; color: #854d0e; border: 1px solid #facc15;" onclick="setPrebookQuickDate(1)">
+                    ⚡ Tomorrow
+                  </button>
+                  <button type="button" class="btn-primary" style="padding: 4px 10px; font-size: 0.72rem; background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;" onclick="setPrebookQuickDate(2)">
+                    Day After Tomorrow
+                  </button>
+                </div>
+              </div>
+
+              <!-- Available Menu Items for Pre-Booking -->
+              <div class="card-white" style="margin-top: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <h4 style="font-size: 0.95rem; font-weight: 700;">🍽️ Select Items for Pre-Order</h4>
+                  <span style="font-size: 0.72rem; color: #64748b;">Click item to add to meal pack</span>
+                </div>
+                <div id="prebook-menu-grid" class="menu-grid" style="max-height: 280px;">
+                  <!-- Dynamically populated from menu -->
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <!-- Pre-Booking Tray & Checkout -->
+              <div class="card-white" style="border: 1.5px solid #e2e8f0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <div>
+                    <h4 style="font-size: 0.95rem; font-weight: 700;">🍱 Pre-Booked Meal Tray</h4>
+                    <span style="font-size: 0.72rem; color: #64748b;">For: <strong id="prebook-student-label">Aarav Sharma</strong></span>
+                  </div>
+                  <button onclick="clearPrebookTray()" style="border: none; background: #f1f5f9; padding: 3px 8px; border-radius: 4px; font-size: 0.72rem; cursor: pointer;">Clear</button>
+                </div>
+
+                <div class="table-wrap" style="max-height: 190px; overflow-y: auto;">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="prebook-cart-tbody">
+                      <tr><td colspan="4" style="text-align: center; color: #94a3b8;">No items in meal pack yet. Click items on the left.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="form-group" style="margin-top: 10px;">
+                  <label>Special Instructions for Kitchen (Optional)</label>
+                  <input type="text" id="prebook-notes" placeholder="e.g. Less spicy, pack fruit juice cold" style="font-size: 0.8rem;">
+                </div>
+
+                <div style="margin-top: 10px; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; color: #64748b;">
+                    <span>Wallet Balance Available:</span>
+                    <strong id="prebook-wallet-balance-disp" style="color: #059669;">₹350.00</strong>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 800; margin-bottom: 12px;">
+                    <span>Total Meal Price:</span>
+                    <span id="prebook-total-amount" style="color: #1e3a8a;">₹0.00</span>
+                  </div>
+
+                  <div style="display: flex; gap: 8px;">
+                    <button id="prebook-wallet-btn" class="btn-primary" style="flex: 1; padding: 11px; background: #059669;" onclick="confirmPrebooking('WALLET')" disabled>
+                      ✅ Pay with Wallet & Confirm Booking
+                    </button>
+                    <button id="prebook-razorpay-btn" class="btn-primary" style="flex: 1; padding: 11px; background: #0c2340;" onclick="confirmPrebooking('RAZORPAY_DEMO')" disabled>
+                      💳 Pay via Razorpay & Book
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Upcoming Booked Meals for this student -->
+              <div class="card-white" style="margin-top: 14px;">
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">🎫 Confirmed Advance Meal Bookings</h4>
+                <div class="table-wrap" style="max-height: 200px; overflow-y: auto;">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Date & Type</th>
+                        <th>Token Code</th>
+                        <th>Items</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="prebook-history-tbody">
+                      <!-- Filled dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1. TOP-UP TAB (LOCKED TO ACTIVE STUDENT) -->
+        <div id="tab-topup" class="cafe-sub-view">
+          <div class="grid-2">
+            <div>
+              <div class="card-white" style="border: 1.5px solid #deb75b; background: #fdfbf7;">
+                <span style="font-size: 0.7rem; font-weight: 800; color: #92630a; text-transform: uppercase;">ACTIVE STUDENT WALLET</span>
+                <h3 id="panel-name" style="font-size: 1.3rem; font-weight: 800; margin-top: 4px;">Aarav Sharma</h3>
+                <p id="panel-meta" style="font-size: 0.8rem; color: #475569;">Grade 8-A &bull; Adm No: <strong>ADM-2026-101</strong></p>
+                
+                <div style="margin: 16px 0; border-top: 1px dashed #deb75b; border-bottom: 1px dashed #deb75b; padding: 12px 0; display: flex; justify-content: space-between; align-items: center;">
+                  <div>
+                    <span style="font-size: 0.7rem; color: #64748b; font-weight: 700;">CURRENT BALANCE</span>
+                    <div class="balance-num" id="panel-balance">₹350.00</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-size: 0.7rem; color: #64748b; font-weight: 700;">DAILY LIMIT</span>
+                    <div style="font-size: 1.1rem; font-weight: 800; color: #d97706;" id="panel-limit">₹200.00</div>
+                  </div>
+                </div>
+
+                <p style="font-size: 0.75rem; color: #64748b;">Parent: <strong id="panel-parent">Rajesh Sharma</strong> (<span id="panel-phone">+91 98765 43210</span>)</p>
+              </div>
+
+              <!-- Top-up Form -->
+              <div class="card-white">
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 10px;">⚡ Instant Wallet Top-Up</h4>
+                <form id="topup-form" onsubmit="handleTopUp(event)">
+                  <div class="form-group">
+                    <label>Top-up Amount (INR)</label>
+                    <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+                      <button type="button" class="btn-primary" style="background:#f1f5f9; color:#1e293b; padding:4px 8px; font-size:0.75rem;" onclick="setAmount(100)">+ ₹100</button>
+                      <button type="button" class="btn-primary" style="background:#f1f5f9; color:#1e293b; padding:4px 8px; font-size:0.75rem;" onclick="setAmount(200)">+ ₹200</button>
+                      <button type="button" class="btn-primary" style="background:#f1f5f9; color:#1e293b; padding:4px 8px; font-size:0.75rem;" onclick="setAmount(500)">+ ₹500</button>
+                      <button type="button" class="btn-primary" style="background:#f1f5f9; color:#1e293b; padding:4px 8px; font-size:0.75rem;" onclick="setAmount(1000)">+ ₹1000</button>
+                    </div>
+                    <input type="number" id="topup-amount" min="10" max="10000" step="10" required placeholder="Enter amount (e.g. 250)">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Payment Gateway</label>
+                    <div style="padding: 8px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+                      <strong style="color: #0c2340; font-size: 0.85rem;">₹ Razorpay Sandbox</strong>
+                      <span style="font-size: 0.7rem; color: #64748b;">UPI / Cards / NetBanking</span>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn-razorpay">
+                    💳 Proceed to Razorpay Payment
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div>
+              <div class="card-white">
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 10px;">🧾 Personal Ledger Transactions</h4>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Time</th>
+                      </tr>
+                    </thead>
+                    <tbody id="parent-trans-tbody">
+                      <!-- Transactions filled dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. STUDENT PASS TAB -->
+        <div id="tab-pass" class="cafe-sub-view" style="display: none;">
+          <div class="grid-2">
+            <div class="card-white">
+              <div style="background: linear-gradient(135deg, #1e3a8a, #2563eb); border-radius: 10px; padding: 20px; color: #fff;">
+                <div style="display: flex; justify-content: space-between;">
+                  <div>
+                    <p style="font-size: 0.7rem; color: #bfdbfe; text-transform: uppercase;">Delhi Public School Indirapuram &bull; Student Pass</p>
+                    <h2 id="kiosk-name" style="margin-top: 4px; font-size: 1.3rem;">Aarav Sharma</h2>
+                    <p id="kiosk-meta" style="font-size: 0.8rem; color: #dbeafe;">Grade 8-A &bull; Adm: <strong>ADM-2026-101</strong></p>
+                  </div>
+                  <div style="width: 44px; height: 44px; background: white; border-radius: 50%; padding: 3px; display: flex; align-items: center; justify-content: center;">
+                    <img src="/dps-logo.png" alt="DPS Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                  </div>
+                </div>
+
+                <div style="margin-top: 18px; display: flex; justify-content: space-between; align-items: flex-end;">
+                  <div>
+                    <p style="font-size: 0.65rem; color: #bfdbfe; font-weight: 700;">BALANCE</p>
+                    <div id="kiosk-balance" style="font-size: 1.8rem; font-weight: 800; color: #86efac;">₹350.00</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <p style="font-size: 0.65rem; color: #bfdbfe; font-weight: 700;">DAILY LIMIT</p>
+                    <div id="kiosk-limit" style="font-size: 1.1rem; font-weight: 700; color: #fef08a;">₹200.00</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-white">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 10px;">📜 Meal Purchase History</h4>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Amount</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody id="kiosk-history-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. CANTEEN POS TAB -->
+        <div id="tab-pos" class="cafe-sub-view" style="display: none;">
+          <div class="grid-2" style="grid-template-columns: 1.2fr 0.8fr;">
+            <div>
+              <div class="card-white">
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 10px;">🍽️ Canteen Menu</h4>
+                <div id="pos-menu-grid" class="menu-grid"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="card-white">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <h4 style="font-size: 0.95rem; font-weight: 700;">🛒 Current Order Tray</h4>
+                  <button onclick="clearCart()" style="border: none; background: #f1f5f9; padding: 3px 8px; border-radius: 4px; font-size: 0.72rem; cursor: pointer;">Clear</button>
+                </div>
+
+                <div class="table-wrap" style="max-height: 220px; overflow-y: auto;">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="cart-tbody">
+                      <tr><td colspan="4" style="text-align: center; color: #94a3b8;">Tray is empty</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div style="margin-top: 12px; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+                  <div style="display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 800; margin-bottom: 12px;">
+                    <span>Total:</span>
+                    <span id="cart-total-amount" style="color: #1e3a8a;">₹0.00</span>
+                  </div>
+                  <button id="pos-charge-btn" class="btn-primary" style="width: 100%; padding: 10px; background: #059669;" onclick="processPOSOrder()" disabled>
+                    ✅ Deduct from Student Wallet & Issue Meal
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Floating bottom arrow tab (matching screenshot) -->
+    <div class="floating-bottom-arrow">‹</div>
+
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- RAZORPAY DEMO DIALOG -->
+  <!-- ============================================================== -->
+  <div id="razorpay-modal-overlay" class="modal-overlay">
+    <div class="razorpay-dialog">
+      <div class="rzp-top">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="background: white; color: #0c2340; padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 0.85rem;">₹ Razorpay</span>
+          <span style="font-size: 0.75rem; opacity: 0.85;">Sandbox Mode</span>
+        </div>
+        <button onclick="closeRazorpayModal()" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer;">&times;</button>
+      </div>
+
+      <div class="rzp-main">
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; text-align: center; margin-bottom: 14px;">
+          <span style="font-size: 0.7rem; color: #64748b; font-weight: 700;">AMOUNT TO PAY</span>
+          <div id="rzp-modal-amount" style="font-size: 1.6rem; font-weight: 800; color: #0c2340; margin: 2px 0;">₹0.00</div>
+          <span id="rzp-modal-desc" style="font-size: 0.75rem; color: #475569;">DPS Indirapuram Cafeteria Wallet</span>
+        </div>
+
+        <div class="rzp-option" onclick="simulatePayment('UPI_GPAY')">
+          <span>📱 Google Pay / PhonePe (UPI)</span>
+          <span style="color: #059669; font-weight: 700; font-size: 0.72rem;">INSTANT</span>
+        </div>
+
+        <div class="rzp-option" onclick="simulatePayment('CARD_VISA')">
+          <span>💳 Visa / Mastercard / RuPay</span>
+          <span style="color: #0284c7; font-weight: 700; font-size: 0.72rem;">TEST CARD</span>
+        </div>
+
+        <div class="rzp-option" onclick="simulatePayment('NETBANKING')">
+          <span>🏦 NetBanking (HDFC, SBI, ICICI)</span>
+          <span>&rarr;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- RESET TEST MODE CONFIRMATION MODAL -->
+  <!-- ============================================================== -->
+  <div id="reset-modal-overlay" class="modal-overlay">
+    <div class="razorpay-dialog" style="max-width: 440px;">
+      <div class="rzp-top" style="background: #991b1b;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.1rem;">🔄</span>
+          <strong style="font-size: 0.95rem;">Reset Test Mode (Factory State)</strong>
+        </div>
+        <button onclick="closeResetModal()" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer;">&times;</button>
+      </div>
+
+      <div class="rzp-main">
+        <p style="font-size: 0.85rem; color: #1f2937; line-height: 1.45; margin-bottom: 14px;">
+          This will restore all student wallets, orders, advance bookings, and financial ledgers back to their clean factory demo starting balances:
+        </p>
+        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 12px; font-size: 0.78rem; color: #991b1b; margin-bottom: 16px;">
+          <strong>Starting Demo Balances:</strong><br>
+          • <strong>Aarav Sharma</strong> (ADM-2026-101): ₹350.00 (Grade 8-A)<br>
+          • <strong>Diya Patel</strong> (ADM-2026-102): ₹150.00 (Grade 7-B)<br>
+          • <strong>Rohan Verma</strong> (ADM-2026-103): ₹25.00 (Grade 9-C)<br>
+          • <strong>Ananya Iyer</strong> (ADM-2026-104): ₹500.00 (Grade 10-A)
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button onclick="closeResetModal()" class="btn-primary" style="flex: 1; background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;">Cancel</button>
+          <button onclick="executeResetTestMode()" class="btn-primary" style="flex: 1.3; background: #dc2626; color: white;">Confirm Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <!-- ============================================================== -->
+  <!-- FOOTER (1:1 MATCH TO SCREENSHOT) -->
+  <!-- ============================================================== -->
+  <footer class="app-footer">
+    <div>&copy; 2026 School For Schools. All rights reserved.</div>
+    <div style="font-size: 1.2rem; cursor: pointer;">▬</div>
+    <div class="footer-links">
+      <a href="#">T&C</a>
+      <span>|</span>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

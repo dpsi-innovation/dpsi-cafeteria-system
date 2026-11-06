@@ -1,14 +1,14 @@
 {
-  "name": "dps-indirapuram-cafeteria-system",
+  "name": "munchly",
   "version": "1.0.0",
-  "description": "Delhi Public School Indirapuram - Cafeteria Wallet & Advance Meal Pre-Booking System",
-  "main": "src/server.js",
+  "description": "Delhi Public School Indirapuram - Munchly Cafeteria Wallet & Advance Meal Pre-Booking System",
+  "main": "api/index.js",
   "scripts": {
     "start": "node src/server.js",
     "dev": "node src/server.js"
   },
   "engines": {
-    "node": ">=22.x"
+    "node": "22.x"
   },
   "keywords": [
     "school-cafeteria",
