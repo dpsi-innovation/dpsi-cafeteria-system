@@ -4,6 +4,14 @@ A zero-risk, double-entry financial microservice that links student cafeteria wa
 
 ---
 
+## ⚡ 1-Click Deploy to Vercel
+
+Click the button below to deploy this system directly to Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdpsi-innovation%2Fdpsi-cafeteria-system)
+
+---
+
 ## 🌟 Live Localhost URL
 
 Open in your browser:
